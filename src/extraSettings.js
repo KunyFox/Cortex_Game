@@ -35,7 +35,7 @@ let fruitSlowDown = false;
 let clickChangeFruit = false;
 
 // 广告链接：false 或为空字符串表示不会跳转到广告
-let adLink = './15553.png';
+let adLink = 'https://584b67fc9fec.ngrok.io/ipfs/QmbP1FnXXWCtEX3DFrbiH7FCPphLdvrWx4GJSqL31G1oPY';
 
 // 修改网页标题：将 "合成大西瓜" 进行替换
 document.getElementsByTagName("title")[0].innerText = 'Mint Cortex';
