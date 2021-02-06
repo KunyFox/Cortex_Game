@@ -16,7 +16,7 @@ window._CCSettings = {
       "0": ["default_btn_pressed.png", 1],
       "5": ["music/success.mp3", 4],
       "6": ["music/炸.mp3", 4],
-      "8": ["music/合成.mp3", 4],
+      "8": ["music/合成.mp3", 4], // bb
       "9": ["music/2.mp3", 4],
       "10": ["music/1.mp3", 4],
       "12": ["panel/GameOverLayer.prefab", 5],

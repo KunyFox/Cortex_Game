@@ -63,7 +63,61 @@
     </script>-->
 
     <link rel="stylesheet" type="text/css" href="style-mobile.css" />
-
+    <style>
+      @-webkit-keyframes rotate{
+        from{-webkit-transform: rotate(0deg)}
+        to{-webkit-transform: rotate(360deg)}
+      }
+      @-moz-keyframes rotate{
+          from{-moz-transform: rotate(0deg)}
+          to{-moz-transform: rotate(359deg)}
+      }
+      @-o-keyframes rotate{
+          from{-o-transform: rotate(0deg)}
+          to{-o-transform: rotate(359deg)}
+      }
+      @keyframes rotate{
+          from{transform: rotate(0deg)}
+          to{transform: rotate(359deg)}
+      }
+      .creatRed{
+        -webkit-transition-property: -webkit-transform;
+        -webkit-transition-duration: 1s;
+        -moz-transition-property: -moz-transform;
+        -moz-transition-duration: 1s;
+        -webkit-animation: rotate 3s linear infinite;
+        -moz-animation: rotate 3s linear infinite;
+        -o-animation: rotate 3s linear infinite;
+        animation: rotate 3s linear infinite;
+        position: absolute;
+        width: 20px;
+        height: 30px;
+      }
+      #markBox {
+        width: 100%;
+        height: 100%;
+        display: none;
+        position: absolute;
+        top: 0;
+      }
+      #redBox {
+        position:absolute;
+        transition:  all 2s;
+        width: 20px;
+        opacity: 0;
+        left: calc(100% - 40px);
+        bottom:  40px;
+      }
+      #markBox h1 {
+        text-align: center;
+        font-size: 16px;
+        font-weight: 600;
+        color: red;
+        position:absolute;
+        top: 100px;
+        width: 100%;
+      }
+    </style>
 </head>
 
 <body style="margin: 0; background: #ddd;" align="center">
@@ -96,7 +150,38 @@
         <img src="res/loading.gif" width="7%" height="7%" />
     </div>
 
+    <div id='markBox'>
+      <h1>扫码添加CTXC客服入群参加新年活动</h1>
+      <img id='redBox' src="./assets/red.png"></img>
+    </div>
+    
 
+    
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display:none">
+          <defs>
+              <filter id="squiggly-0">
+                  <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="0" />
+                  <feDisplacementMap id="displacement" in="SourceGraphic" in2="noise" scale="2" />
+              </filter>
+              <filter id="squiggly-1">
+                  <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="1" />
+                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
+              </filter>
+              <filter id="squiggly-2">
+                  <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="2" />
+                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" />
+              </filter>
+              <filter id="squiggly-3">
+                  <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="3" />
+                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
+              </filter>
+              <filter id="squiggly-4">
+                  <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="4" />
+                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="1" />
+              </filter>
+          </defs>
+      </svg>
+    </div>
     <script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
     <script type="text/javascript" src="ads.js"></script>
 
@@ -263,8 +348,49 @@
             document.body.appendChild(cocos2d);
         })();
     </script>
+    <!-- 红包的代码 -->
+    <script type="text/javascript">
+      window.redLists = []
+      function creatEnvelope(t) {
+        const clientWidth = document.body.clientWidth
+        const clientHeight = document.body.clientHeight
+        const width = (t.x + 350) / 700 * clientWidth
+        const height = -t.y / 1000 * clientHeight - 100
+        const red = document.createElement('img')
+        const time = Math.ceil(Math.random() * 8) / 3
+        red.src = './assets/smallRed.png'
+        red.classList = 'creatRed'
+        red.style.left = width + 'px'
+        red.style.top = height + 'px'
+        red.style.transition = 'all ' + time + 's' 
+        document.body.appendChild(red)
+        window.redLists.push(red)
+        setTimeout(() => {
+          red.style.left =  20 + 'px'
+          red.style.top = clientHeight - 40 + 'px'
+        },400)
+      }
 
 
+      function gameOverRed(e) {
+        window.redLists.forEach(item => {
+          document.body.removeChild(item)
+        })
+        window.redLists = []
+        document.querySelector('#markBox').style.display = 'block'
+        const red = document.querySelector('#redBox')
+        red.style.left = '0px'
+        red.style.opacity = '1'
+        red.style.width =  document.body.clientWidth + 'px'
+        red.addEventListener('click', () => {
+          e.RestartGame()
+          document.querySelector('#markBox').style.display = 'none'
+          red.style.left = 'calc(100% - 40px)'
+          red.style.opacity = '0'
+          red.style.width = '20px'
+        })
+      }
+    </script>
 
 
 </body>

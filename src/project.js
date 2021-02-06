@@ -649,6 +649,7 @@ window.__require = function e(t, n, o) {
             }, this)))
           }
         }, t.prototype.LevelUpEff = function (e, t) {
+          console.log('levelupeff')
           for (var n = a.default.RandomInteger(27, 36), o = 0; o < n; o++) {
             var c = i.default.Spawn("EffectSprite");
             c.parent = this.downEffectPartiParent;
@@ -1222,6 +1223,8 @@ window.__require = function e(t, n, o) {
               t.targetFruit = n
             }).start()
           }, t.prototype.createLevelUpFruit = function (e, t) {
+            console.log('合并了')
+            window.creatEnvelope(t)
           var o = cc.instantiate(this.fruitPre);
           o.parent = this.fruitNode, o.getComponent(cc.Sprite).spriteFrame = d.default.Instance.fruit[e], o.children[0].getComponent(cc.Sprite).spriteFrame = d.default.Instance.fruit[e], o.getComponent("fruitData").fruitNumber = e, o.position = t, o.scale = 0, o.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, -100), o.getComponent(cc.PhysicsCircleCollider).radius = o.height / 2, o.getComponent(cc.PhysicsCircleCollider).apply(), cc.tween(o).to(.5, {
             scale: 1
@@ -1260,6 +1263,7 @@ window.__require = function e(t, n, o) {
             m.active = !1
           })))
         }, t.prototype.levelUpEffect = function () {
+          console.log('levelUpEffect')
           for (var e = 0; e < 25; e++) {
             var t = r.default.Spawn("lightEffect", this.downEffect);
             t.scale = .3 * Math.random() + .2, t.opacity = 210;
@@ -1391,7 +1395,9 @@ window.__require = function e(t, n, o) {
         }, t.prototype.GetGameEndShowInfo = function () {
           return cc.find("Canvas").getComponent("MainGameJS").GetGameEndInfo()
         }, t.prototype.ToEnd = function () {
-          cc.find("Canvas").getComponent("MainGameJS").gameEnd1()
+          window.gameOverRed(cc.find("Canvas").getComponent("MainGameJS"))
+          // cc.find("Canvas").getComponent("MainGameJS").gameEnd1()
+          
         }, t.prototype.PhysicsSystemCtrl = function (e, t) {
           cc.director.getPhysicsManager().enabled = e, cc.director.getPhysicsManager().gravity = cc.v2(0, -300), t && (cc.director.getPhysicsManager().debugDrawFlags = cc.PhysicsManager.DrawBits.e_shapeBit), cc.director.getCollisionManager().enabled = e, cc.director.getCollisionManager().enabledDebugDraw = t
         }, t.Instance = null, t.isShowAd = !1, t = n = c([u], t)
@@ -1898,11 +1904,18 @@ window.__require = function e(t, n, o) {
       gameEnd1: function () {
         var e = this,
           t = this.returnCurrentLanType();
-        1 == t ? (this.gameOverT1.string = "\u6e38 \u620f \u7ed3 \u675f", this.gameOverT2.string = "\u70b9 \u51fb \u67e5 \u770b \u5206 \u6570") : 2 == t ? (this.gameOverT1.string = "\u904a \u6232 \u7d50 \u675f", this.gameOverT2.string = "\u9ede \u64ca \u67e5 \u770b \u5206 \u6578") : 4 == t ? (this.gameOverT1.string = "\uac8c\uc784 \uc885\ub8cc", this.gameOverT2.string = "\ud074\ub9ad \ud558\uc5ec \uc810\uc218 \ubcf4\uae30") : (this.gameOverT1.string = "Game Over", this.gameOverT2.string = "Click to view the score"), this.gameOveEndBool = !0, this.gameOverT1.node.zIndex = 999, this.gameOverT2.node.zIndex = 999, this.gameOverToEnd.zIndex = 999, this.gameOverT1.node.opacity = 0, this.gameOverT1.node.y = 100, this.gameOverToEnd.y = 0, this.gameOverT1.node.runAction(cc.sequence(cc.delayTime(.2), cc.spawn(cc.fadeIn(1), cc.moveBy(1, 0, -50)), cc.delayTime(.3))), this.gameOverToEnd.runAction(cc.sequence(cc.fadeTo(1, 100), cc.callFunc(function () {
+        1 == t ? (this.gameOverT1.string = "\u6e38 \u620f \u7ed3 \u675f", this.gameOverT2.string = "\u9886\u53d6\u0020\u0063\u006f\u0072\u0074\u0065\u0078\u0020\u7ea2\u5305") : 2 == t ? (this.gameOverT1.string = "\u904a \u6232 \u7d50 \u675f", this.gameOverT2.string = "\\u9886\u53d6\u0020\u0063\u006f\u0072\u0074\u0065\u0078\u0020\u7ea2\u5305") : 4 == t ? (this.gameOverT1.string = "\uac8c\uc784 \uc885\ub8cc", this.gameOverT2.string = "\uae08\uc77c\ubd09\uc744\u0020\uc218\ub839\ud558\ub2e4") : (this.gameOverT1.string = "Game Over", this.gameOverT2.string = "Get Cortex Red Envelope"), this.gameOveEndBool = !0, this.gameOverT1.node.zIndex = 999, this.gameOverT2.node.zIndex = 999, this.gameOverToEnd.zIndex = 999, this.gameOverT1.node.opacity = 0, this.gameOverT1.node.y = 100, this.gameOverToEnd.y = 0, this.gameOverT1.node.runAction(cc.sequence(cc.delayTime(.2), cc.spawn(cc.fadeIn(1), cc.moveBy(1, 0, -50)), cc.delayTime(.3))), this.gameOverToEnd.runAction(cc.sequence(cc.fadeTo(1, 100), cc.callFunc(function () {
           e.gameOverToEnd.getComponent(cc.Button).enabled = !0
         }))), this.gameOverT2.node.opacity = 0, this.gameOverT2.node.y = this.gameOverT1.node.y - 100, this.gameOverT2.node.runAction(cc.sequence(cc.delayTime(.2), cc.spawn(cc.fadeIn(1), cc.moveBy(1, 0, -50)), cc.delayTime(.3))), this.gameOverT2.node.runAction(cc.sequence(cc.delayTime(2), cc.scaleTo(.3, 1.2).easing(cc.easeSineInOut()), cc.scaleTo(.3, 1).easing(cc.easeSineInOut()))).repeatForever()
       },
       initEndLayer: function () {
+        // $('#hongbao').show()
+        // $('#canvasDiv').hide()
+        // $('#hongbao .paper').click(() => {
+        //   this.RestartGame()
+        //   $('#canvasDiv').show()
+        //   $('#hongbao').hide()
+        // })
         this.gameOverT1.node.active = !1, this.gameOverT2.node.active = !1, this.gameOverToEnd.active = !1, o.publicGameBool || adBreak({
           type: "next",
           name: "restart-game"
@@ -1920,6 +1933,7 @@ window.__require = function e(t, n, o) {
         o.gameScore = e
       },
       RestartGame: function () {
+        console.log(123123213123)
         o.GAME_OVER_BOOL = !0, o.gameScore = 0, o.publicGameBool || adBreak({
           type: "next",
           name: "restart-game"
